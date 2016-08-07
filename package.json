@@ -1,7 +1,7 @@
 {
-  "name": "redux-relay",
-  "version": "1.0.0",
-  "description": "Batch Redux Actions.",
+  "name": "redux-graphql-middleware",
+  "version": "0.0.1",
+  "description": "Redux GraphQL Actions.",
   "main": "lib/index.js",
   "scripts": {
     "test": "./node_modules/.bin/cross-env BABEL_ENV=commonjs ./node_modules/.bin/mocha --compilers js:babel-register --recursive",
