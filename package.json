@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:gtg092x/redux-graphql.git"
+    "url": "git@github.com:gtg092x/redux-graphql-middleware.git"
   },
   "keywords": [
     "redux",
@@ -39,7 +39,7 @@
   "author": "Matthew Drake <mdrake@mediadrake.com> (https://github.com/gtg092x)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gtg092x/redux-graphql/issues"
+    "url": "https://github.com/gtg092x/redux-graphql-middleware/issues"
   },
   "devDependencies": {
     "babel-cli": "^6.6.5",
