@@ -17,10 +17,11 @@ function config({
   return store => {
     return (next) => {
       return (action) => {
-        if (action.type === graphAction) {
+        if (action.type === graphAction || action.graphql) {
 
 
           const {query: queryArgRaw, vars: varsArg = {}, options: optionsArg = {}, headers = {}, ...rest} = (action.data || {});
+          const {server: actionServer, ready: actionReady = graphReady, done: actionDone = graphDone, error: actionError = graphError, } = (action.graphql || {});
           const queryArg = rest.mutation || queryArgRaw;
 
           const state = store.getState();
@@ -52,11 +53,13 @@ function config({
             ...vars
           };
           store.dispatch({
-            type: graphReady,
+            type: actionReady,
             data: false
           });
 
-          graphFetch(query,
+          const fetchMachine = actionServer === undefined ? graphFetch : graphFetchFactory(actionServer);
+
+          fetchMachine(query,
             outVars,
             outOptions
           )
@@ -68,17 +71,17 @@ function config({
                 });
               } else {
                 store.dispatch({
-                  type: graphDone,
+                  type: actionDone,
                   data
                 });
               }
             })
             .catch(err => store.dispatch({
-              type: graphError,
+              type: actionError,
               error: error
             }))
             .then(() => store.dispatch({
-              type: graphReady,
+              type: actionReady,
               data: true
             }));
         }
