@@ -1,13 +1,13 @@
-# Redux GraphQL Middleware [![Build Status](https://travis-ci.org/gtg092x/redux-graphql.svg?branch=master)](https://travis-ci.org/gtg092x/redux-graphql)
+# Redux GraphQL Middleware [![Build Status](https://travis-ci.org/gtg092x/redux-graphql-middleware.svg?branch=master)](https://travis-ci.org/gtg092x/redux-graphql-middleware)
 
 Generate GraphQL queries with [Redux][] middleware .
 
-[![NPM](https://nodei.co/npm/redux-graphql.png?downloads=true&stars=true)](https://nodei.co/npm/redux-graphql/)
+[![NPM](https://nodei.co/npm/redux-graphql-middleware.png?downloads=true&stars=true)](https://nodei.co/npm/redux-graphql-middleware/)
 
 
 ## Installation
 
-    % npm install redux-graphql
+    % npm install redux-graphql-middleware
 
 ## Usage
 
