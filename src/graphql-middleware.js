@@ -9,7 +9,10 @@ function config({
   error: graphError,
   getHeaders = _.noop,
   getOptions = _.noop,
-  getVariables = _.noop
+  getVariables = _.noop,
+  onComplete: onCompleteConfig = _.noop,
+  transform: transformConfig = _.identity,
+  errorTransform: errorTransformConfig = _.identity
 } = {}) {
 
   const graphFetch = graphFetchFactory(server);
@@ -21,7 +24,15 @@ function config({
 
 
           const {query: queryArgRaw, vars: varsArg = {}, options: optionsArg = {}, headers = {}, ...rest} = (action.data || {});
-          const {server: actionServer, ready: actionReady = graphReady, done: actionDone = graphDone, error: actionError = graphError, } = (action.graphql || {});
+          const {
+            server: actionServer,
+            transform = transformConfig,
+            errorTransform = errorTransformConfig,
+            onComplete = onCompleteConfig,
+            ready: actionReady = graphReady,
+            done: actionDone = graphDone,
+            error: actionError = graphError,
+          } = (action.graphql || {});
           const queryArg = rest.mutation || queryArgRaw;
 
           const state = store.getState();
@@ -67,19 +78,23 @@ function config({
               if (errors) {
                 store.dispatch({
                   type: graphError,
-                  error: errors
+                  error: errorTransform(errors)
                 });
               } else {
                 store.dispatch({
                   type: actionDone,
-                  data
+                  data: transform(data)
                 });
+                onComplete(null, transform(data));
               }
             })
-            .catch(err => store.dispatch({
-              type: actionError,
-              error: error
-            }))
+            .catch(error => {
+              store.dispatch({
+                type: actionError,
+                error: errorTransform(error)
+              });
+              onComplete(errorTransform(error));
+            })
             .then(() => store.dispatch({
               type: actionReady,
               data: true

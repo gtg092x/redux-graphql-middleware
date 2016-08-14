@@ -26,7 +26,9 @@ const store = createStore(
     action: 'GRAPH',
     ready: 'GRAPH_READY',
     done: 'GRAPH_DONE',
-    error: 'GRAPH_ERROR'
+    error: 'GRAPH_ERROR',
+    transform: data => data, // transforms result
+    errorTransform: error => error // transforms error
   }))
 );
 
@@ -65,7 +67,9 @@ store.dispatch({
       action: 'GRAPH',
       ready: 'GRAPH_READY',
       done: 'GRAPH_DONE',
-      error: 'GRAPH_ERROR'
+      error: 'GRAPH_ERROR',
+      transform: data => data, // transforms result
+      errorTransform: error => error // transforms error
     },
     data: {
         query: `query { hello, hi }`
