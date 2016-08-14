@@ -63,10 +63,11 @@ function config({
             ...stateVariables,
             ...vars
           };
-          store.dispatch({
-            type: actionReady,
-            data: false
-          });
+          if (actionReady !== undefined)
+            store.dispatch({
+              type: actionReady,
+              data: false
+            });
 
           const fetchMachine = actionServer === undefined ? graphFetch : graphFetchFactory(actionServer);
 
@@ -95,10 +96,13 @@ function config({
               });
               onComplete(errorTransform(error));
             })
-            .then(() => store.dispatch({
-              type: actionReady,
-              data: true
-            }));
+            .then(() => {
+              if (actionReady !== undefined)
+                store.dispatch({
+                  type: actionReady,
+                  data: true
+                });
+          });
         }
         return next(action);
       }
