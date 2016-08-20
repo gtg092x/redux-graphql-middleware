@@ -1,6 +1,6 @@
 {
   "name": "redux-graphql-middleware",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Redux GraphQL Actions.",
   "main": "lib/index.js",
   "scripts": {
@@ -71,6 +71,7 @@
     "redux": "^3.5.2"
   },
   "dependencies": {
-    "graphql-fetch": "^1.0.0"
+    "graphql-fetch": "^1.0.0",
+    "lodash": "^4.15.0"
   }
 }
