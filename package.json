@@ -1,22 +1,15 @@
 {
   "name": "redux-graphql-middleware",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Redux GraphQL Actions.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/cross-env BABEL_ENV=commonjs ./node_modules/.bin/mocha --compilers js:babel-register --recursive",
-    "compile": "./node_modules/.bin/babel --source-maps inline --optional runtime -d lib/ src/",
+    "test": "./node_modules/.bin/cross-env BABEL_ENV=compile ./node_modules/.bin/mocha --compilers js:babel-register --recursive",
+    "compile": "BABEL_ENV=compile ./node_modules/.bin/babel --source-maps inline --optional runtime -d lib/ src/",
     "prepublish": "npm run compile",
     "ghpage": "lessc ghpage/style.less ghpage.css && pug ./ghpage/index.pug --out ./"
   },
-  "babel": {
-    "presets": [
-      "es2015",
-      "stage-0",
-      "stage-1",
-      "stage-2"
-    ]
-  },
+
   "nyc": {
     "exclude": [
       "*.js",

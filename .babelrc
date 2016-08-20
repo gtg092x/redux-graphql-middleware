@@ -1,0 +1,15 @@
+{
+  "env": {
+    "compile": {
+      "presets": [
+        "es2015",
+        "stage-0",
+        "stage-1",
+        "stage-2"
+      ],
+      "plugins": [
+        "transform-object-rest-spread"
+      ]
+    }
+  }
+}
