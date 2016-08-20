@@ -1,6 +1,13 @@
 import graphFetchFactory from 'graphql-fetch';
 import _ from 'lodash';
 
+function getServer(server, state) {
+  if (_.isFunction(server)) {
+    return server({...state});
+  }
+  return server;
+}
+
 function config({
   server,
   action: graphAction = 'GRAPH',
@@ -15,7 +22,6 @@ function config({
   errorTransform: errorTransformConfig = _.identity
 } = {}) {
 
-  const graphFetch = graphFetchFactory(server);
 
   return store => {
     return (next) => {
@@ -69,7 +75,9 @@ function config({
               data: false
             });
 
-          const fetchMachine = actionServer === undefined ? graphFetch : graphFetchFactory(actionServer);
+          const finalServer = getServer(actionServer === undefined ? server : actionServer, state);
+
+          const fetchMachine = graphFetchFactory(finalServer);
 
           fetchMachine(query,
             outVars,

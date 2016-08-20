@@ -100,5 +100,44 @@ export default function () {
       });
     });
 
+    it('should support a function server', function(done) {
+
+      function testReducer(state, action) {
+        if (action.type === 'GRAPH_DONE_CUSTOM') {
+          assert.deepEqual({hello: 'world', hi: 'wld'}, action.data);
+          done();
+        }
+        return state;
+      };
+
+      const store = createStore(reducify(
+        {
+          "GRAPH": (state, action) => action,
+          reducer: testReducer
+        }
+        ), {},
+        applyMiddleware(graphqlMiddleware())
+      );
+
+
+      store.subscribe(() => {
+        const state = store.getState();
+        assert.isOk(true);
+      });
+
+      store.dispatch({
+        type: 'GRAPH',
+        graphql: {
+          ready: 'GRAPH_READY_CUSTOM',
+          done: 'GRAPH_DONE_CUSTOM',
+          error: 'GRAPH_ERROR_CUSTOM',
+          server: () => 'http://localhost:3000/graphql'
+        },
+        data: {
+          query: `query { hello, hi }`
+        }
+      });
+    });
+
   });
 }
