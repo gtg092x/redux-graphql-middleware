@@ -1,5 +1,5 @@
 'use strict'
-require('isomorphic-fetch') // injects globals: fetch, Headers, Request, Response
+import 'whatwg-fetch';
 
 // assert stub
 function assert (isOk, err) {
@@ -13,7 +13,12 @@ function assert (isOk, err) {
  * @param  {String} graphqlUrl
  * @return {Function} graphqlFetch
  */
-module.exports = function factory (graphqlUrl) {
+module.exports = function factory (graphqlUrl, fetch) {
+
+  if (fetch === undefined) {
+    require('isomorphic-fetch'); // injects globals: fetch, Headers, Request, Response
+  }
+
   /**
    * graphql fetch - fetch w/ smart defaults for graphql requests
    * @param  {Query} query graphql query

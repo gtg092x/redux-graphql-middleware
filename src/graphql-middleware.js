@@ -10,6 +10,7 @@ function getServer(server, state) {
 
 function config({
   server,
+  fetch,
   action: graphAction = 'GRAPH',
   ready: graphReady,
   done: graphDone,
@@ -77,7 +78,7 @@ function config({
 
           const finalServer = getServer(actionServer === undefined ? server : actionServer, state);
 
-          const fetchMachine = graphFetchFactory(finalServer);
+          const fetchMachine = graphFetchFactory(finalServer, fetch);
 
           fetchMachine(query,
             outVars,
