@@ -3,6 +3,7 @@ import graphqlMiddleware from '../src';
 import reducify from 'reducify';
 const {assert} = chai;
 import { createStore, applyMiddleware } from 'redux';
+import 'isomorphic-fetch';
 
 import {run as runServer, stop as stopServer} from './sample-server';
 
@@ -38,6 +39,7 @@ export default function () {
         }
         ), {},
         applyMiddleware(graphqlMiddleware({
+          fetch,
           server: 'http://localhost:3777/graphql',
           action: 'GRAPH',
           ready: 'GRAPH_READY',
@@ -76,7 +78,7 @@ export default function () {
           reducer: testReducer
         }
         ), {},
-        applyMiddleware(graphqlMiddleware())
+        applyMiddleware(graphqlMiddleware({fetch}))
       );
 
 
@@ -115,7 +117,7 @@ export default function () {
           reducer: testReducer
         }
         ), {},
-        applyMiddleware(graphqlMiddleware())
+        applyMiddleware(graphqlMiddleware({fetch}))
       );
 
 

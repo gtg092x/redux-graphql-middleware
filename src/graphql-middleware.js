@@ -22,7 +22,9 @@ function config({
   transform: transformConfig = _.identity,
   errorTransform: errorTransformConfig = _.identity
 } = {}) {
-
+  if (fetch === undefined) {
+    throw '[GraphQL middleware] \'fetch\' is required';
+  }
 
   return store => {
     return (next) => {
@@ -56,8 +58,8 @@ function config({
             headers
           };
 
-          if (!outHeaders.get) {
-            outHeaders = new Headers(outHeaders);
+          if (!outHeaders) {
+            outHeaders = {};
           }
 
           const outOptions = {

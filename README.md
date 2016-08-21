@@ -13,15 +13,17 @@ Generate GraphQL queries with [Redux][] middleware .
 
 ```js
 import { createStore } from 'redux';
-import reducify from 'reducify';
+import 'isomorphic-fetch'; // you need a fetch polyfill if you don't have one
 
+function myReducer(state, action) {
+// reducer
+}
 
 const store = createStore(
-  reducify({
-    "GRAPH": (state = 0, action) => action.data
-  }),
+  myReducer,
   {},
   applyMiddleware(graphqlMiddleware({
+    fetch, // Important! fetch is required
     server: 'http://localhost:3000/graphql',
     action: 'GRAPH',
     ready: 'GRAPH_READY',
@@ -49,15 +51,15 @@ This is the same as above:
 
 ```js
 import { createStore } from 'redux';
-import reducify from 'reducify';
 
+function myReducer(state, action) {
+// reducer
+}
 
 const store = createStore(
-  reducify({
-    "GRAPH": (state = 0, action) => action.data
-  }),
+  myReducer,
   {},
-  applyMiddleware(graphqlMiddleware())
+  applyMiddleware(graphqlMiddleware({fetch}))
 );
 
 store.dispatch({
@@ -84,15 +86,16 @@ Also the same as above:
 
 ```js
 import { createStore } from 'redux';
-import reducify from 'reducify';
 
+function myReducer(state, action) {
+// reducer
+}
 
 const store = createStore(
-  reducify({
-    "GRAPH": (state = 0, action) => action.data
-  }),
+  myReducer,
   {},
   applyMiddleware(graphqlMiddleware({
+    fetch,
     server: 'http://localhost:3000/graphql'
   }))
 );
@@ -112,9 +115,11 @@ store.dispatch({
 
 ```
 
-## WIP
+## Fetch
 
-This is a work in progress. I want to integrate `redux-batch-actions` going forward.
+In order for this middleware to work, you need to pass in an implementation of `fetch`. Check out some polyfills at [https://github.com/github/fetch] or [https://github.com/qubyte/fetch-ponyfill].
+
+As of version 0.1.1, passing in your fetch interface is a requirement. 
 
 ## Credits
 

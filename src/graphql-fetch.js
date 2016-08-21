@@ -1,5 +1,4 @@
 'use strict'
-import 'whatwg-fetch';
 
 // assert stub
 function assert (isOk, err) {
@@ -15,9 +14,6 @@ function assert (isOk, err) {
  */
 module.exports = function factory (graphqlUrl, fetch) {
 
-  if (fetch === undefined) {
-    require('isomorphic-fetch'); // injects globals: fetch, Headers, Request, Response
-  }
 
   /**
    * graphql fetch - fetch w/ smart defaults for graphql requests
@@ -35,13 +31,13 @@ module.exports = function factory (graphqlUrl, fetch) {
       variables: vars
     })
     // default opts
-    opts.method = opts.method || 'POST'
-    opts.headers = opts.headers || new Headers()
+    opts.method = opts.method || 'POST';
+    opts.headers = opts.headers || {};
 
     // default headers
-    var headers = opts.headers
-    if (!headers.get('content-type')) {
-      opts.headers.append('content-type', 'application/json')
+    var headers = opts.headers;
+    if (!headers['content-type']) {
+      opts.headers['content-type'] = 'application/json';
     }
     return fetch(graphqlUrl, opts).then(function (res) {
       return res.json()
