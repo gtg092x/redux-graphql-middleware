@@ -84,7 +84,7 @@ app.use('/graphql', graphqlHTTP({
 let server;
 
 function run() {
-  server = app.listen(3000);
+  server = app.listen(3777);
 }
 
 function stop() {

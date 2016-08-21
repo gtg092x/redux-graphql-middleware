@@ -1,6 +1,6 @@
 {
   "name": "redux-graphql-middleware",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "description": "Redux GraphQL Actions.",
   "main": "lib/index.js",
   "scripts": {
@@ -9,7 +9,6 @@
     "prepublish": "npm run compile",
     "ghpage": "lessc ghpage/style.less ghpage.css && pug ./ghpage/index.pug --out ./"
   },
-
   "nyc": {
     "exclude": [
       "*.js",
@@ -65,7 +64,7 @@
     "redux": "^3.5.2"
   },
   "dependencies": {
-    "graphql-fetch": "^1.0.0",
+    "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.15.0"
   }
 }

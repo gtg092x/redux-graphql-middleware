@@ -1,5 +1,4 @@
 import chai from 'chai';
-import _ from 'lodash';
 import graphqlMiddleware from '../src';
 import reducify from 'reducify';
 const {assert} = chai;
@@ -39,7 +38,7 @@ export default function () {
         }
         ), {},
         applyMiddleware(graphqlMiddleware({
-          server: 'http://localhost:3000/graphql',
+          server: 'http://localhost:3777/graphql',
           action: 'GRAPH',
           ready: 'GRAPH_READY',
           done: 'GRAPH_DONE',
@@ -92,7 +91,7 @@ export default function () {
           ready: 'GRAPH_READY_CUSTOM',
           done: 'GRAPH_DONE_CUSTOM',
           error: 'GRAPH_ERROR_CUSTOM',
-          server: 'http://localhost:3000/graphql'
+          server: 'http://localhost:3777/graphql'
         },
         data: {
           query: `query { hello, hi }`
@@ -131,7 +130,7 @@ export default function () {
           ready: 'GRAPH_READY_CUSTOM',
           done: 'GRAPH_DONE_CUSTOM',
           error: 'GRAPH_ERROR_CUSTOM',
-          server: () => 'http://localhost:3000/graphql'
+          server: () => 'http://localhost:3777/graphql'
         },
         data: {
           query: `query { hello, hi }`

@@ -1,4 +1,4 @@
-import graphFetchFactory from 'graphql-fetch';
+import graphFetchFactory from './graphql-fetch';
 import _ from 'lodash';
 
 function getServer(server, state) {
