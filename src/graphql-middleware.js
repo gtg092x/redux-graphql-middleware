@@ -89,7 +89,7 @@ function config({
             .then(({data, errors} = {}) => {
               if (errors) {
                 store.dispatch({
-                  type: graphError,
+                  type: actionError,
                   error: errorTransform(errors)
                 });
               } else {
