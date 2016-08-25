@@ -1,6 +1,6 @@
 {
   "name": "redux-graphql-middleware",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Redux GraphQL Actions.",
   "main": "lib/index.js",
   "scripts": {

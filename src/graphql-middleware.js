@@ -70,7 +70,8 @@ function config({
 
           const outVars = {
             ...stateVariables,
-            ...vars
+            ...vars,
+            ...(action.vars || {})
           };
           if (actionReady !== undefined)
             store.dispatch({
