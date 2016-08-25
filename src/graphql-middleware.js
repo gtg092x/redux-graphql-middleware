@@ -75,7 +75,8 @@ function config({
           if (actionReady !== undefined)
             store.dispatch({
               type: actionReady,
-              data: false
+              data: false,
+              vars: outVars
             });
 
           const finalServer = getServer(actionServer === undefined ? server : actionServer, state);
@@ -90,28 +91,32 @@ function config({
               if (errors) {
                 store.dispatch({
                   type: actionError,
-                  error: errorTransform(errors)
+                  error: errorTransform(errors),
+                  vars: outVars
                 });
               } else {
                 store.dispatch({
                   type: actionDone,
-                  data: transform(data)
+                  data: transform(data),
+                  vars: outVars
                 });
-                onComplete(null, transform(data));
+                onComplete(null, transform(data), outVars);
               }
             })
             .catch(error => {
               store.dispatch({
                 type: actionError,
-                error: errorTransform(error)
+                error: errorTransform(error),
+                vars: outVars
               });
-              onComplete(errorTransform(error));
+              onComplete(errorTransform(error), null, outVars);
             })
             .then(() => {
               if (actionReady !== undefined)
                 store.dispatch({
                   type: actionReady,
-                  data: true
+                  data: true,
+                  vars: outVars
                 });
           });
         }
